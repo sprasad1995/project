@@ -1,0 +1,307 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <!-- Left side container containing form fields and data entered after submitting it to the rest api-->
+      <br /><br />
+      <div class="card">
+        <div class="card-body">
+          <!--form outline-->
+          <form [formGroup]="myform" (ngSubmit)="postdata()"  enctype="multipart/form-data">
+            <!--formtag with formgroup and function to be executed after submission-->
+            <div class="form-group">
+              <!--name div-->
+              <label for="name">Name</label>
+              <!--ngStyle used on input fields to border the input incase any validation error found.-->
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                placeholder="Enter Name here"
+                formControlName="name"
+                [ngStyle]="{
+                  border:
+                    myform.controls.name.touched && myform.controls.name.errors
+                      ? '1px solid red'
+                      : ''
+                }"
+              />
+              <!--class errordiv gives coloring to the error messages which are displayed only if input is touched and specific errors found-->
+              <div
+                *ngIf="
+                  myform.controls.name.touched &&
+                  myform.controls.name.hasError('required')
+                "
+                class="errordiv"
+              >
+                Please enter a name
+              </div>
+              <div
+                *ngIf="
+                  myform.controls.name.touched &&
+                  myform.controls.name.hasError('pattern')
+                "
+                class="errordiv"
+              >
+                Please enter a name without numbers or special characters
+              </div>
+            </div>
+            <!--name div ends here-->
+
+            <div class="row">
+              <!--date of birth and phone number row div-->
+              <div class="col">
+                <label for="dob">Date of Birth</label>
+
+                <input type="text"  id="dob"
+                  formControlName="dob" placeholder="{{todayDate |  date:'dd/mm/yyyy'}}"
+                  class="form-control" bsDatepicker  [bsConfig]="datePickerConfig"
+                  placement="right"    [ngStyle]="{
+                    border:
+                      myform.controls.dob.touched && myform.controls.dob.errors
+                        ? '1px solid red'
+                        : ''
+                  }"
+                 >
+                <div
+                  *ngIf="
+                    myform.controls.dob.touched &&
+                    myform.controls.dob.hasError('required')
+                  "
+                  class="errordiv"
+                >
+                  Please select a date
+                </div>
+              </div>
+              <div class="col">
+                <label for="phone">Phone number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Phone number"
+                  formControlName="phone"
+                  [ngStyle]="{
+                    border:
+                      myform.controls.phone.touched &&
+                      myform.controls.phone.errors
+                        ? '1px solid red'
+                        : ''
+                  }"
+                />
+                <div
+                  *ngIf="
+                    myform.controls.phone.touched &&
+                    myform.controls.phone.hasError('required')
+                  "
+                  class="errordiv"
+                >
+                  Please enter a phone number
+                </div>
+                <div
+                  *ngIf="
+                    myform.controls.phone.touched &&
+                    myform.controls.phone.hasError('pattern')
+                  "
+                  class="errordiv"
+                >
+                  Phone number can only have digits.
+                </div>
+              </div>
+            </div>
+            <br /><!--row ends here-->
+
+            <div class="row">
+              <!--gender and email row div-->
+              <div class="col">
+                <label for="gender">Gender</label>
+                <select
+                  class="custom-select"
+                  id="gender"
+                  formControlName="gender"
+                  [ngStyle]="{
+                    border:
+                      myform.controls.gender.touched &&
+                      myform.controls.gender.errors
+                        ? '1px solid red'
+                        : ''
+                  }"
+                >
+                  <option value="" selected>Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                <div
+                  *ngIf="
+                    myform.controls.gender.touched &&
+                    myform.controls.gender.hasError('required')
+                  "
+                  class="errordiv"
+                >
+                  Please select a gender
+                </div>
+              </div>
+              <div class="col">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter email here"
+                  formControlName="email"
+                  [ngStyle]="{
+                    border:
+                      myform.controls.email.touched &&
+                      myform.controls.email.errors
+                        ? '1px solid red'
+                        : ''
+                  }"
+                />
+                <div
+                  *ngIf="
+                    myform.controls.email.touched &&
+                    myform.controls.email.hasError('required')
+                  "
+                  class="errordiv"
+                >
+                  Please enter an email
+                </div>
+                <div
+                *ngIf="
+                  myform.controls.email.touched &&
+                  myform.controls.email.hasError('pattern')
+                "
+                class="errordiv"
+              >
+                Please enter valid email address
+              </div>
+              </div>
+            </div>
+            <br /><!--row ends here-->
+
+            <div class="row">
+              <!--age and salary row div-->
+              <div class="col">
+                <label for="age">Age</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="age"
+                  placeholder="Enter age here"
+                  formControlName="age"
+                  [ngStyle]="{
+                    border:
+                      myform.controls.age.touched && myform.controls.age.errors
+                        ? '1px solid red'
+                        : ''
+                  }"
+                />
+                <div
+                  *ngIf="
+                    myform.controls.age.touched &&
+                    myform.controls.age.hasError('required')
+                  "
+                  class="errordiv"
+                >
+                  Please enter your age
+                </div>
+                <div
+                  *ngIf="
+                    myform.controls.age.touched &&
+                    myform.controls.age.hasError('pattern')
+                  "
+                  class="errordiv"
+                >
+                  Age can only be in numbers.
+                </div>
+              </div>
+              <div class="col">
+                <label for="salary">Salary</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="salary"
+                  placeholder="Salary"
+                  formControlName="salary"
+                  [ngStyle]="{
+                    border:
+                      myform.controls.salary.touched &&
+                      myform.controls.salary.errors
+                        ? '1px solid red'
+                        : ''
+                  }"
+                />
+                <div
+                  *ngIf="
+                    myform.controls.salary.touched &&
+                    myform.controls.salary.hasError('required')
+                  "
+                  class="errordiv"
+                >
+                  Please enter your Salary
+                </div>
+                <div
+                  *ngIf="
+                    myform.controls.salary.touched &&
+                    myform.controls.salary.hasError('pattern')
+                  "
+                  class="errordiv"
+                >
+                  Salary can only be in numbers.
+                </div>
+              </div>
+            </div>
+            <br /><!--row ends here-->
+
+            <div class="input-group">
+              <!--div containing file upload-->
+              <div class="input-group-prepend">
+                <span class="input-group-text">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="inputGroupFile01"
+                  name="file"
+                  accept="application/pdf,application/vnd.ms-excel"
+                  (change)="onFileselected($event)"
+                />
+                <label class="custom-file-label" for="inputGroupFile01"
+                  >Choose file</label
+                >
+              </div>
+            </div>
+            <br /><br /><!--file upload div ends here-->
+
+            <div class="row">
+              <!--row for buttons -->
+              <div class="col">
+                <button type="submit" class="btn btn-success btn-block">
+                  Submit
+                </button>
+              </div>
+              <div class="col">
+                <button type="reset" class="btn btn-danger btn-block">
+                  Clear
+                </button>
+              </div>
+            </div>
+            <!--row ends here-->
+          </form>
+          <!--form tag ends here-->
+        </div>
+        <!--cardbody ends here-->
+      </div>
+      <!--card ends here-->
+      <div
+        [ngStyle]="{ display: currentobj.id == undefined ? 'none' : 'block' }"
+      >
+        <!--this div is only displayed if data is posted as currentobj is initially defined null.-->
+        <h4>Employee ID: {{ currentobj.id }}</h4>
+        <h4>Employee Name: {{ currentobj.employee_name }}</h4>
+        <h4>Employee Age: {{ currentobj.employee_age }}</h4>
+        <h4>Employee Salary: {{ currentobj.employee_salary }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
