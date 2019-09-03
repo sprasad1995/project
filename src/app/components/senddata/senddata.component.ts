@@ -1,7 +1,6 @@
 import { GetemployeeService } from './../../service/getemployee.service';
 
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms'; // for creating json data to be posted
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr'; // for toastr alert
@@ -12,14 +11,9 @@ import { ToastrService } from 'ngx-toastr'; // for toastr alert
 })
 export class SenddataComponent implements OnInit {
 
-
-
   constructor(
     private empService: GetemployeeService,
     private toastr: ToastrService) {
-
-
-
     this.datePickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
       showWeekNumbers: false,
@@ -34,8 +28,7 @@ export class SenddataComponent implements OnInit {
   emp: any;
   currentobj: any = {}; // object to receive data submitted to post service.
   data: any;
-  selectedFile = null;
-
+  file = null;
   datePickerConfig: Partial<BsDatepickerConfig>;
   todayDate = new Date(); // select scurrent date
 
@@ -50,13 +43,15 @@ export class SenddataComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       age: new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
       salary: new FormControl('', [Validators.required, Validators.pattern('[0-6]*')]),
-      // file: new FormControl('', [Validators.required]),
+
     });
   }
 
 
   onFileselected(event: any) {
-    this.selectedFile = event.target.file[0];
+    this.file = event.target.files[0];
+    // console.log(this.myform);
+    // this.myform.append('file');
   }
   postdata() {
     if (this.myform.invalid) {
